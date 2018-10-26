@@ -1,9 +1,11 @@
 package launcher;
 
+import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.sql.Timestamp;
 
-public class ErrorCheckers {
+public class Logistics {
 	public static int correctInput(int num1, int num2) {
 		Scanner sc = new Scanner(System.in);
 		int choice = -1;
@@ -21,6 +23,17 @@ public class ErrorCheckers {
 				}
 			}
 		}
+		sc.close();
 		return choice;
+	}
+	
+	public static Timestamp javaTimeToSqlTime(Date javaTime) {
+		Timestamp ts = new Timestamp(javaTime.getTime());
+		return ts;
+	}
+	
+	public static Date sqlTimeToJavaTime(Timestamp sqlTime) {
+		Date date = new Date(sqlTime.getTime());
+		return date;
 	}
 }
