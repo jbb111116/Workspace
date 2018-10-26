@@ -1,16 +1,23 @@
 package models;
 
-public class Managers {
-	private String role;
+public class User {
+	private int user_id;
+	private int role;
 	private String username;
 	private String password;
 	private String firstName;
 	private String lastName;
 	private String email;
-	public String getRole() {
+	public int getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
+	}
+	public int getRole() {
 		return role;
 	}
-	public void setRole(String role) {
+	public void setRole(int role) {
 		this.role = role;
 	}
 	public String getUsername() {
@@ -51,7 +58,8 @@ public class Managers {
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((role == null) ? 0 : role.hashCode());
+		result = prime * result + role;
+		result = prime * result + user_id;
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
@@ -63,7 +71,7 @@ public class Managers {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Managers other = (Managers) obj;
+		User other = (User) obj;
 		if (email == null) {
 			if (other.email != null)
 				return false;
@@ -84,10 +92,9 @@ public class Managers {
 				return false;
 		} else if (!password.equals(other.password))
 			return false;
-		if (role == null) {
-			if (other.role != null)
-				return false;
-		} else if (!role.equals(other.role))
+		if (role != other.role)
+			return false;
+		if (user_id != other.user_id)
 			return false;
 		if (username == null) {
 			if (other.username != null)
@@ -98,11 +105,13 @@ public class Managers {
 	}
 	@Override
 	public String toString() {
-		return "Managers [role=" + role + ", username=" + username + ", password=" + password + ", firstName="
-				+ firstName + ", lastName=" + lastName + ", email=" + email + "]";
+		return "User [user_id=" + user_id + ", role=" + role + ", username=" + username + ", password=" + password
+				+ ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + "]";
 	}
-	public Managers(String role, String username, String password, String firstName, String lastName, String email) {
+	public User(int user_id, int role, String username, String password, String firstName, String lastName,
+			String email) {
 		super();
+		this.user_id = user_id;
 		this.role = role;
 		this.username = username;
 		this.password = password;
@@ -110,9 +119,9 @@ public class Managers {
 		this.lastName = lastName;
 		this.email = email;
 	}
-	public Managers() {
+	public User() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
-	
 	
 }
