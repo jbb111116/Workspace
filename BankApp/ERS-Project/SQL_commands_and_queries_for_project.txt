@@ -1,4 +1,4 @@
-These are all the commands and queries I used to create an object in our project tables.
+These are all the commands and queries used to create an object in our project tables.
 
 Command to insert into the reimbursement type table:
 	INSERT INTO reimbursement_type (reimb_type_id, reimb_type) VALUES (3, 'Medical');
