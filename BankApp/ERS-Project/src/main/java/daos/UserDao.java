@@ -11,7 +11,6 @@ import models.User;
 import util.ConnectionUtil;
 
 public class UserDao {
-
 	// ---------------------------------Employee Connection----------------------------------------
 	private User extractEmployee(ResultSet rs) throws SQLException {
 		User extracted = new User();
