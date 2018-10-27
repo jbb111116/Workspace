@@ -1,7 +1,18 @@
 These are all the commands and queries I used to create an object in our project tables.
 
 Command to insert into the reimbursement type table:
-	INSERT INTO reimbursement_type (reimb_type_id, reimb_type) VALUES (3, 'Medical'); <-- I used this one to insert into the reimbursement types table
+	INSERT INTO reimbursement_type (reimb_type_id, reimb_type) VALUES (3, 'Medical');
+
+	INSERT INTO reimbursement_status (reimb_status_id, reimb_status) 
+		VALUES (1, 'pending'), (2, 'approved'), (3, ' denied');
+	
+	INSERT INTO user_roles (users_role_id, user_role) 
+		VALUES (1, 'employee'), (2,'manager');
+
+	INSERT INTO users (username, psswrd, user_first_name, user_last_name, user_email, user_role_id)
+		VALUES ('jdawg','pass', 'Jonathan', 'Bedolla', 'jon.bed@aol.com', 2),
+		('pmoore', 'pass1', 'Preston', 'Moore', 'pmoore@gmail.com', 2),
+		('employee1', 'pass','Jeff', 'Dunham', jdunham@yahoo.com', 1);
 
 
 
@@ -15,10 +26,12 @@ Commands used to try to connect data from two separate tables, where one referen
 		FROM users INNER JOIN user_roles ON users.user_role_id=user_roles.user_role_id;
 
 	SELECT * FROM users INNER JOIN user_roles ON user_roles.user_role_id = users.user_role_id
+	
+	SELECT * FROM users INNER JOIN user_roles ON user_roles.users_role_id = users.user_role_id
 
 
 
-Commands used to create the five tables that were used:
+Command used to create the five tables that were used:
 	CREATE TABLE IF NOT EXISTS reimbursement_status (
 		reimb_status_id NUMERIC PRIMARY KEY,
 		reimb_status VARCHAR(10)
@@ -65,7 +78,9 @@ Commands used to create the five tables that were used:
 
 
 
-Commands used on SQL to insert into the user_roles table:
+Commands used on SQL to insert into tables:
+	
+	
 	INSERT INTO user_roles (users_role_id, user_role) VALUES (1, 'employee'), (2,'manager');
 
 
