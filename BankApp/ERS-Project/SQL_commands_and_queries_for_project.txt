@@ -1,0 +1,71 @@
+These are all the commands and queries I used to create an object in our project tables.
+
+Command to insert into the reimbursement type table:
+	INSERT INTO reimbursement_type (reimb_type_id, reimb_type) VALUES (3, 'Medical'); <-- I used this one to insert into the reimbursement types table
+
+
+
+Commands used to try to connect data from two separate tables, where one referenced the other:
+	SELECT (users_id, username, psswrd, user_first_name, user_last_name, user_email, user_role) 
+		from users Left Join user_roles on users.user_role_id = user_roles.user_role_id;
+
+	SELECT (user_role_id) FROM users NATURAL Join user_roles;
+
+	SELECT users.users_id, users.username, users.psswrd, users.user_first_name, users.user_last_name, users.user_email, users.user_role_id
+		FROM users INNER JOIN user_roles ON users.user_role_id=user_roles.user_role_id;
+
+	SELECT * FROM users INNER JOIN user_roles ON user_roles.user_role_id = users.user_role_id
+
+
+
+Commands used to create the five tables that were used:
+	CREATE TABLE IF NOT EXISTS reimbursement_status (
+		reimb_status_id NUMERIC PRIMARY KEY,
+		reimb_status VARCHAR(10)
+	);
+		
+	CREATE TABLE IF NOT EXISTS reimbursement_type(
+		reimb_type_id NUMERIC PRIMARY KEY,
+		reimb_type VARCHAR(10)
+	);
+	
+	CREATE TABLE IF NOT EXISTS user_roles (
+		users_role_id NUMERIC PRIMARY KEY,
+		user_role VARCHAR(10)
+	);
+	
+	CREATE TABLE IF NOT EXISTS users (
+		users_id NUMERIC PRIMARY KEY,
+		username VARCHAR(50) UNIQUE,
+		psswrd VARCHAR(50),
+		user_first_name VARCHAR(100),
+		user_last_name VARCHAR(100),
+		user_email VARCHAR(150) UNIQUE,
+		user_role_id NUMERIC,
+		CONSTRAINT user_roles_fk FOREIGN KEY (user_role_id) REFERENCES user_roles (users_role_id)
+);
+
+	CREATE TABLE IF NOT EXISTS reimbursement(
+		reimb_id NUMERIC PRIMARY KEY,
+		reimb_amount NUMERIC,
+		reimb_submitted TIMESTAMP,
+		reimb_resolved  TIMESTAMP,
+		reimb_description VARCHAR(250),
+		reimb_receipt BYTEA,
+		reimb_author NUMERIC,
+		reimb_resolver NUMERIC,
+		reimb_status_id NUMERIC,
+		reimb_type_id NUMERIC,
+		CONSTRAINT users_FK_auth FOREIGN KEY (reimb_author) REFERENCES users (users_id),
+		CONSTRAINT users_FK_reslvr FOREIGN KEY (reimb_resolver) REFERENCES users(users_id),
+		CONSTRAINT reimbursement_status_FK FOREIGN KEY (reimb_status_id) REFERENCES reimbursement_status (reimb_status_id),
+		CONSTRAINT reimbursement_type_FK FOREIGN KEY (reimb_type_id) REFERENCES reimbursement_type (reimb_type_id)
+	
+	);
+
+
+
+Commands used on SQL to insert into the user_roles table:
+	INSERT INTO user_roles (users_role_id, user_role) VALUES (1, 'employee'), (2,'manager');
+
+
