@@ -14,6 +14,8 @@ public class ManagerServices {
 		return userDao.createEmployee(user);
 	}
 	
+	//---------------------Optional ----------------------------
+	
 	public void promoteEmployee(User user) {
 		if(user.getRole()==1) {
 			userDao.promoteByUsername(user);
@@ -25,5 +27,5 @@ public class ManagerServices {
 			userDao.demoteByUsername(user);
 		}System.out.println("User is already an employee.");
 	}
-	
+	//-----------------------------------------------------------
 }

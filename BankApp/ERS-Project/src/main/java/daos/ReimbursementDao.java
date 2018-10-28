@@ -15,9 +15,7 @@ import util.ConnectionUtil;
 public class ReimbursementDao {
 	private ReimbursementRequest extractRequest(ResultSet rs) throws SQLException {
 		ReimbursementRequest extracted = new ReimbursementRequest();
-		extracted.setAmount(rs.getDouble("reimb_amount"));
-		extracted.setSubmitted(Logistics.sqlTimeToJavaTime(rs.getTimestamp("reimb_submitted")));
-		extracted.setResolved(Logistics.sqlTimeToJavaTime(rs.getTimestamp("reimb_resolved")));
+		extracted.setAmount(rs.getFloat("reimb_amount"));
 		extracted.setDescription(rs.getString("reimb_description"));
 		extracted.setAuthor_id(rs.getInt("reim_author"));
 		extracted.setType_id(rs.getInt("reimb_type_id"));
@@ -48,16 +46,12 @@ public class ReimbursementDao {
 			String query = "INSERT INTO reimbursement(reimb_amount,reimb_submitted,\r\n"
 							+"reimb_resolved,reimb_description,reimb_receipt, reimb_author, reimb_resolver,\r\n" 
 							+"reimb_status_id, reimb_type_id) \r\n"
-							+"VALUES(?,?,?,?,?,null,?,?,?);";
+							+"VALUES(?,CURRENT_TIMESTAMP,null,?,null,?,null,1,?);";
 			PreparedStatement ps = conn.prepareStatement(query);
 			ps.setDouble(1, request.getAmount());
-			ps.setTimestamp(2,Logistics.javaTimeToSqlTime(request.getResolved()));
-			ps.setTime(3, null);
-			ps.setString(4, request.getDescription());
-			ps.setInt(5,request.getAuthor_id());
-			ps.setInt(6, request.getStatus());
-			ps.setInt(7,request.getType_id());
-			ps.setInt(8, request.getStatus());
+			ps.setString(2, request.getDescription());
+			ps.setInt(3,request.getAuthor_id());
+			ps.setInt(4,request.getType_id());
 			
 			ResultSet rs = ps.executeQuery();
 			rs.next();

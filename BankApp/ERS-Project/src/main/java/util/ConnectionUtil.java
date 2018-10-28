@@ -8,9 +8,9 @@ public class ConnectionUtil {
 	public static Connection getConnection() {
 		
 		try {
-			String url = "ers:postgresql://classdb.cwgm7vdywa98.us-east-2.rds.amazonaws.com:5432/postgres";
-			String username = System.getenv("PROJECT1_LOGIN");
-			String password = System.getenv("PROJECT1_PASSWORD");
+			String url = "jdbc:postgresql://classdb.cwgm7vdywa98.us-east-2.rds.amazonaws.com:5432/postgres";
+			String username = System.getenv("JDBC_LOGIN");
+			String password = System.getenv("JDBC_PASSWORD");
 			return DriverManager.getConnection(url, username , password);
 		} catch(SQLException e) {
 			e.printStackTrace();

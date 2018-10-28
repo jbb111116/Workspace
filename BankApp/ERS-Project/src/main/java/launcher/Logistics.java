@@ -23,7 +23,6 @@ public class Logistics {
 				}
 			}
 		}
-		sc.close();
 		return choice;
 	}
 	
