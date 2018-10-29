@@ -18,7 +18,8 @@ public class Instantiations {
 		System.out.println("author");
 		int author_id = Logistics.correctInput(0, 3);
 		System.out.println("discript");
-		String description = sc.next();
+		sc.nextLine();
+		String description = sc.nextLine();
 		System.out.println("type");
 		int type_id = Logistics.correctInput(0, 3);
 		
