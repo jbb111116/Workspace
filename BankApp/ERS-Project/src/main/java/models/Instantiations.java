@@ -1,6 +1,7 @@
 package models;
 
-import java.util.Date;
+import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.Scanner;
 
 import launcher.Logistics;
@@ -13,17 +14,24 @@ public class Instantiations {
 	
 	public static ReimbursementRequest newRequest() {
 		Scanner sc = new Scanner(System.in);
+		int reimb_id = 0;
 		System.out.println("amount");
-		double amount = sc.nextDouble();
+		BigDecimal amount = sc.nextBigDecimal();
+		Date resolved = null;
 		System.out.println("author");
-		int author_id = Logistics.correctInput(0, 3);
+		int author_id = Logistics.correctInput(0, 4);
 		System.out.println("discript");
 		sc.nextLine();
 		String description = sc.nextLine();
 		System.out.println("type");
 		int type_id = Logistics.correctInput(0, 3);
+		int resolver_id = 0;
+		int status_id = 1;
+		Date submitted = null;
 		
-		ReimbursementRequest request = new ReimbursementRequest(0,amount,description, author_id,type_id);
+		ReimbursementRequest request = new ReimbursementRequest(reimb_id,amount,submitted,resolved, description,author_id,resolver_id,status_id,type_id);
 		return request;
 	}
+	
+	
 }

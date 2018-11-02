@@ -1,18 +1,26 @@
 package services;
 
+import java.util.List;
+
 import daos.ReimbursementDao;
 import daos.UserDao;
 import models.ReimbursementRequest;
 
 public class EmployeeServices {
 	UserDao userDao = new UserDao();
-	ReimbursementDao reimbursementDao = new ReimbursementDao();
+	ReimbursementDao reimbDao = new ReimbursementDao();
 	
 	public ReimbursementRequest submitRequest(ReimbursementRequest request) {
-		return reimbursementDao.createRequest(request);
+		return reimbDao.createRequest(request);
 	}
 	
+	public List<ReimbursementRequest> getPendingRequestsByUsername(String username){
+		return reimbDao.UserPendingRequests(username);
+	}
 	
+	public List<ReimbursementRequest> getProcessedRequestsByUsername(String username){
+		return reimbDao.UserProcessedRequests(username);
+	}
 	
 	
 }

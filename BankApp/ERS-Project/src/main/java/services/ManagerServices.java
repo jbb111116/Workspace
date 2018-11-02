@@ -1,10 +1,42 @@
 package services;
 
+import java.util.List;
+
+import daos.ReimbursementDao;
 import daos.UserDao;
+import models.ReimbursementRequest;
 import models.User;
 
 public class ManagerServices {
+	// ---------------Required------------------------------------
 	UserDao userDao = new UserDao();
+	ReimbursementDao reimbDao = new ReimbursementDao();
+	
+	public List<ReimbursementRequest> getAllCompletedRequests() {
+		return reimbDao.AllCompletedRequests();
+	}
+	
+	public List<ReimbursementRequest> getAllPendingRequests() {
+		return reimbDao.AllPendingRequests();
+	}
+	
+	public List<ReimbursementRequest> getPendingRequestsByUsername(String username){
+		return reimbDao.UserPendingRequests(username);
+	}
+	
+	public List<ReimbursementRequest> getProcessedRequestsByUsername(String username){
+		return reimbDao.UserProcessedRequests(username);
+	}
+	
+	//------------------------------------------------------------
+	
+	
+	
+	
+	//---------------------Optional ----------------------------
+	public ReimbursementRequest submitRequest(ReimbursementRequest request) {
+		return reimbDao.createRequest(request);
+	}
 	
 	public User saveManager(User user) {
 		return userDao.createManager(user);
@@ -14,7 +46,6 @@ public class ManagerServices {
 		return userDao.createEmployee(user);
 	}
 	
-	//---------------------Optional ----------------------------
 	
 	public void promoteEmployee(User user) {
 		if(user.getRole()==1) {

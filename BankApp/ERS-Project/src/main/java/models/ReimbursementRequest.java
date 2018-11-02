@@ -1,12 +1,17 @@
 package models;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 
 public class ReimbursementRequest {
 	private int reimbursement_id;
-	private double amount;// keep
+	private BigDecimal amount;// keep
+	private Date submitted;
+	private Date resolved;
 	private String description;
 	private int author_id;
+	private int resolver_id;
+	private int status_id;
 	private int type_id;
 	public int getReimbursement_id() {
 		return reimbursement_id;
@@ -14,11 +19,23 @@ public class ReimbursementRequest {
 	public void setReimbursement_id(int reimbursement_id) {
 		this.reimbursement_id = reimbursement_id;
 	}
-	public double getAmount() {
+	public BigDecimal getAmount() {
 		return amount;
 	}
-	public void setAmount(double amount) {
+	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
+	}
+	public Date getSubmitted() {
+		return submitted;
+	}
+	public void setSubmitted(Date submitted) {
+		this.submitted = submitted;
+	}
+	public Date getResolved() {
+		return resolved;
+	}
+	public void setResolved(Date resolved) {
+		this.resolved = resolved;
 	}
 	public String getDescription() {
 		return description;
@@ -32,6 +49,18 @@ public class ReimbursementRequest {
 	public void setAuthor_id(int author_id) {
 		this.author_id = author_id;
 	}
+	public int getResolver_id() {
+		return resolver_id;
+	}
+	public void setResolver_id(int resolver_id) {
+		this.resolver_id = resolver_id;
+	}
+	public int getStatus_id() {
+		return status_id;
+	}
+	public void setStatus_id(int status_id) {
+		this.status_id = status_id;
+	}
 	public int getType_id() {
 		return type_id;
 	}
@@ -42,12 +71,14 @@ public class ReimbursementRequest {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		long temp;
-		temp = Double.doubleToLongBits(amount);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + ((amount == null) ? 0 : amount.hashCode());
 		result = prime * result + author_id;
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + reimbursement_id;
+		result = prime * result + ((resolved == null) ? 0 : resolved.hashCode());
+		result = prime * result + resolver_id;
+		result = prime * result + status_id;
+		result = prime * result + ((submitted == null) ? 0 : submitted.hashCode());
 		result = prime * result + type_id;
 		return result;
 	}
@@ -60,7 +91,10 @@ public class ReimbursementRequest {
 		if (getClass() != obj.getClass())
 			return false;
 		ReimbursementRequest other = (ReimbursementRequest) obj;
-		if (Double.doubleToLongBits(amount) != Double.doubleToLongBits(other.amount))
+		if (amount == null) {
+			if (other.amount != null)
+				return false;
+		} else if (!amount.equals(other.amount))
 			return false;
 		if (author_id != other.author_id)
 			return false;
@@ -71,26 +105,46 @@ public class ReimbursementRequest {
 			return false;
 		if (reimbursement_id != other.reimbursement_id)
 			return false;
+		if (resolved == null) {
+			if (other.resolved != null)
+				return false;
+		} else if (!resolved.equals(other.resolved))
+			return false;
+		if (resolver_id != other.resolver_id)
+			return false;
+		if (status_id != other.status_id)
+			return false;
+		if (submitted == null) {
+			if (other.submitted != null)
+				return false;
+		} else if (!submitted.equals(other.submitted))
+			return false;
 		if (type_id != other.type_id)
 			return false;
 		return true;
 	}
 	@Override
 	public String toString() {
-		return "ReimbursementRequest [reimbursement_id=" + reimbursement_id + ", amount=" + amount + ", description="
-				+ description + ", author_id=" + author_id + ", type_id=" + type_id + "]";
+		return "ReimbursementRequest [reimbursement_id=" + reimbursement_id + ", amount=" + amount + ", submitted="
+				+ submitted + ", resolved=" + resolved + ", description=" + description + ", author_id=" + author_id
+				+ ", resolver_id=" + resolver_id + ", status_id=" + status_id + ", type_id=" + type_id + "]";
 	}
-	public ReimbursementRequest(int reimbursement_id, double amount, String description, int author_id, int type_id) {
+	public ReimbursementRequest(int reimbursement_id, BigDecimal amount, Date submitted, Date resolved,
+			String description, int author_id, int resolver_id, int status_id, int type_id) {
 		super();
 		this.reimbursement_id = reimbursement_id;
 		this.amount = amount;
+		this.submitted = submitted;
+		this.resolved = resolved;
 		this.description = description;
 		this.author_id = author_id;
+		this.resolver_id = resolver_id;
+		this.status_id = status_id;
 		this.type_id = type_id;
 	}
 	public ReimbursementRequest() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
+	
 	
 }

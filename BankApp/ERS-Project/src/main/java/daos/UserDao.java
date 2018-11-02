@@ -58,12 +58,15 @@ public class UserDao {
 			ResultSet rs = ps.executeQuery();
 			rs.next();
 			user.setUser_id(rs.getInt("users_id"));
+			System.out.println("Your employee was made.");
 			return user;
 		} catch(SQLException e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
+	
+	
 	
 	//------------------------------------------------------------------------------------------
 	/*
@@ -155,6 +158,7 @@ public class UserDao {
 			ResultSet rs = ps.executeQuery();
 			rs.next();
 			user.setUser_id(rs.getInt("users_id"));
+			System.out.println("Your request has been sent!");
 			return user;
 		} catch(SQLException e) {
 			e.printStackTrace();

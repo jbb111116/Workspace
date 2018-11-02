@@ -32,49 +32,50 @@ Commands used to try to connect data from two separate tables, where one referen
 
 
 Command used to create the five tables that were used:
-	CREATE TABLE IF NOT EXISTS reimbursement_status (
-		reimb_status_id NUMERIC PRIMARY KEY,
-		reimb_status VARCHAR(10)
-	);
-		
-	CREATE TABLE IF NOT EXISTS reimbursement_type(
-		reimb_type_id NUMERIC PRIMARY KEY,
-		reimb_type VARCHAR(10)
-	);
-	
-	CREATE TABLE IF NOT EXISTS user_roles (
-		users_role_id NUMERIC PRIMARY KEY,
-		user_role VARCHAR(10)
-	);
-	
-	CREATE TABLE IF NOT EXISTS users (
-		users_id NUMERIC PRIMARY KEY,
-		username VARCHAR(50) UNIQUE,
-		psswrd VARCHAR(50),
-		user_first_name VARCHAR(100),
-		user_last_name VARCHAR(100),
-		user_email VARCHAR(150) UNIQUE,
-		user_role_id NUMERIC,
-		CONSTRAINT user_roles_fk FOREIGN KEY (user_role_id) REFERENCES user_roles (users_role_id)
+	  CREATE TABLE IF NOT EXISTS reimbursement_status (
+                reimb_status_id NUMERIC PRIMARY KEY,
+                reimb_status VARCHAR10)
+        );
+
+        CREATE TABLE IF NOT EXISTS reimbursement_type(
+                reimb_type_id NUMERIC PRIMARY KEY,
+                reimb_type VARCHAR(10)
+        );
+
+        CREATE TABLE IF NOT EXISTS user_roles (
+                users_role_id NUMERIC PRIMARY KEY,
+                user_role VARCHAR(10)
+        );
+
+        CREATE TABLE IF NOT EXISTS users (
+                users_id NUMERIC PRIMARY KEY,
+                username VARCHAR(50) UNIQUE,
+                psswrd VARCHAR(50),
+                user_first_name VARCHAR(100),
+                user_last_name VARCHAR(100),
+                user_email VARCHAR(150) UNIQUE,
+                user_role_id NUMERIC,
+                CONSTRAINT user_roles_fk FOREIGN KEY (user_role_id) REFERENCES user_roles (users_role_id)
 );
 
-	CREATE TABLE IF NOT EXISTS reimbursement(
-		reimb_id NUMERIC PRIMARY KEY,
-		reimb_amount NUMERIC,
-		reimb_submitted TIMESTAMP,
-		reimb_resolved  TIMESTAMP,
-		reimb_description VARCHAR(250),
-		reimb_receipt BYTEA,
-		reimb_author NUMERIC,
-		reimb_resolver NUMERIC,
-		reimb_status_id NUMERIC,
-		reimb_type_id NUMERIC,
-		CONSTRAINT users_FK_auth FOREIGN KEY (reimb_author) REFERENCES users (users_id),
-		CONSTRAINT users_FK_reslvr FOREIGN KEY (reimb_resolver) REFERENCES users(users_id),
-		CONSTRAINT reimbursement_status_FK FOREIGN KEY (reimb_status_id) REFERENCES reimbursement_status (reimb_status_id),
-		CONSTRAINT reimbursement_type_FK FOREIGN KEY (reimb_type_id) REFERENCES reimbursement_type (reimb_type_id)
-	
-	);
+        CREATE TABLE IF NOT EXISTS reimbursement(
+                reimb_id NUMERIC PRIMARY KEY,
+                reimb_amount NUMERIC,
+                reimb_submitted TIMESTAMP,
+                reimb_resolved  TIMESTAMP,
+                reimb_description VARCHAR(250),
+                reimb_receipt BY
+                reimb_author NUMERIC,
+                reimb_resolver NUMERIC,
+                reimb_status_id NUMERIC,
+                reimb_type_id NUMERIC,
+                CONSTRAINT users_FK_auth FOREIGN KEY (reimb_author) REFERENCES users (users_id),
+                CONSTRAINT users_FK_reslvr FOREIGN KEY (reimb_resolver) REFERENCES users(users_id),
+                CONSTRAINT reimbursement_status_FK FOREIGN KEY (reimb_status_id) REFERENCES reimbursement_status (reimb_status_id),
+                CONSTRAINT reimbursement_type_FK FOREIGN KEY (reimb_type_id) REFERENCES reimbursement_type (reimb_type_id)
+
+        );
+
 
 
 
@@ -82,5 +83,3 @@ Commands used on SQL to insert into tables:
 	
 	
 	INSERT INTO user_roles (users_role_id, user_role) VALUES (1, 'employee'), (2,'manager');
-
-

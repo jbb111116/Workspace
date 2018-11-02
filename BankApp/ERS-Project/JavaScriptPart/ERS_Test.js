@@ -5,6 +5,7 @@ const getData = async function() {
     const prefixUrl = 'localhost:8080/';
     let searchUsername = document.getElementById('search-input-username').value;
     let searchPass = document.getElementById('search-input-pass').value;
+    const suffixUrl;
     let url = prefixUrl + searchUsername + '/' +searchPass;
 
 
