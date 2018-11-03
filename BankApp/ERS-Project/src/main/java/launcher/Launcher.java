@@ -1,8 +1,9 @@
 package launcher;
 
-import models.Instantiations;
-import models.ReimbursementRequest;
+import java.util.Scanner;
+
 import services.EmployeeServices;
+import services.ManagerServices;
 
 public class Launcher {
 //	public static void main(String[] args) {
@@ -10,13 +11,11 @@ public class Launcher {
 //		view.Login();
 //	}
 	public static void main(String[] args) {
-		EmployeeServices employeeServices = new EmployeeServices();
-		ReimbursementRequest request = new ReimbursementRequest();
+		EmployeeServices es = new EmployeeServices();
+		ManagerServices ms = new ManagerServices();
+		Scanner sc = new Scanner(System.in);
 		
-		request = Instantiations.newRequest();
-		
-		employeeServices.submitRequest(request);
-		
+		es.submitRequest();
 		
 	}
 }

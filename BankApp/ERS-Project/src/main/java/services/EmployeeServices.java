@@ -4,13 +4,16 @@ import java.util.List;
 
 import daos.ReimbursementDao;
 import daos.UserDao;
+import models.Instantiations;
 import models.ReimbursementRequest;
 
 public class EmployeeServices {
 	UserDao userDao = new UserDao();
 	ReimbursementDao reimbDao = new ReimbursementDao();
 	
-	public ReimbursementRequest submitRequest(ReimbursementRequest request) {
+	public ReimbursementRequest submitRequest() {
+		ReimbursementRequest request;
+		request = Instantiations.newRequest();
 		return reimbDao.createRequest(request);
 	}
 	

@@ -22,7 +22,7 @@ public class ReimbursementDao {
 		ReimbursementRequest extracted = new ReimbursementRequest();
 		extracted.setAmount(rs.getBigDecimal("reimb_amount"));
 		extracted.setDescription(rs.getString("reimb_description"));
-		extracted.setAuthor_id(rs.getInt("reim_author"));
+		extracted.setAuthor_id(rs.getInt("reimb_author"));
 		extracted.setResolver_id(rs.getInt("reimb_resolver"));
 		extracted.setReimbursement_id(rs.getInt("reimb_id"));
 		extracted.setSubmitted(rs.getDate("reimb_submitted"));
@@ -30,7 +30,7 @@ public class ReimbursementDao {
 		extracted.setStatus_id(rs.getInt("reimb_status_id"));
 		extracted.setType_id(rs.getInt("reimb_type_id"));
 		
-		System.out.println("User extracted!");
+		System.out.println("Request extracted!");
 		return extracted;
 	}
 	
@@ -42,7 +42,7 @@ public class ReimbursementDao {
 		ReimbursementRequest extracted = new ReimbursementRequest();
 		extracted.setAmount(rs.getBigDecimal("reimb_amount"));
 		extracted.setDescription(rs.getString("reimb_description"));
-		extracted.setAuthor_id(rs.getInt("reim_author"));
+		extracted.setAuthor_id(rs.getInt("reimb_author"));
 		extracted.setResolver_id(0);
 		extracted.setReimbursement_id(rs.getInt("reimb_id"));
 		extracted.setSubmitted(rs.getDate("reimb_submitted"));
@@ -50,7 +50,7 @@ public class ReimbursementDao {
 		extracted.setStatus_id(rs.getInt("reimb_status_id"));
 		extracted.setType_id(rs.getInt("reimb_type_id"));
 		
-		System.out.println("User extracted!");
+		System.out.println("Requests extracted!");
 		return extracted;
 	}
 		
@@ -68,6 +68,7 @@ public class ReimbursementDao {
 			List<ReimbursementRequest> requests = new ArrayList<>();
 			while(rs.next()) {
 				ReimbursementRequest request = extractCompletedRequest(rs);
+				System.out.println(request);
 				requests.add(request);
 			}
 			return requests;
@@ -91,6 +92,7 @@ public class ReimbursementDao {
 			while(rs.next()) {
 				ReimbursementRequest request = extractPendingRequest(rs);
 				requests.add(request);
+				System.out.println(request);
 			}
 			return requests;
 		} catch (SQLException e) {
@@ -135,7 +137,7 @@ public class ReimbursementDao {
 	// Extracts all pending request of a User
 	public List<ReimbursementRequest> UserPendingRequests(String username){
 		try (Connection conn = ConnectionUtil.getConnection()) {
-			String query = "SELECT (reimb_id, reimb_amount, reimb_submitted, reimb_resolved, reimb_description,reimb_author,reimb_resolver) \r\n" + 
+			String query = "SELECT * \r\n" + 
 					"FROM reimbursement LEFT JOIN users ON reimbursement.reimb_author = users.users_id WHERE username = ? AND reimbursement.reimb_status_id = 1;";
 			PreparedStatement ps = conn.prepareStatement(query);
 			ps.setString(1, username);
@@ -144,6 +146,7 @@ public class ReimbursementDao {
 			while(rs.next()) {
 				ReimbursementRequest request = extractPendingRequest(rs);
 				requests.add(request);
+				System.out.println(request);
 			}
 			return requests;
 		} catch (SQLException e) {
@@ -155,7 +158,7 @@ public class ReimbursementDao {
 	// Extracts all processed requests of a User
 	public List<ReimbursementRequest> UserProcessedRequests(String username){
 		try (Connection conn = ConnectionUtil.getConnection()) {
-			String query = "SELECT (reimb_id, reimb_amount, reimb_submitted, reimb_resolved, reimb_description,reimb_author,reimb_resolver) \r\n" + 
+			String query = "SELECT * \r\n" + 
 					"FROM reimbursement LEFT JOIN users ON reimbursement.reimb_author = users.users_id WHERE username = ? AND reimbursement.reimb_status_id > 1;";
 			PreparedStatement ps = conn.prepareStatement(query);
 			ps.setString(1, username);
@@ -164,6 +167,7 @@ public class ReimbursementDao {
 			while(rs.next()) {
 				ReimbursementRequest request = extractCompletedRequest(rs);
 				requests.add(request);
+				System.out.println(request);
 			}
 			return requests;
 		} catch (SQLException e) {
